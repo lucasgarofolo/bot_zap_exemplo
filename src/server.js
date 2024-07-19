@@ -156,7 +156,7 @@ function start(client) {
 
 
         default:
-          var menu = '👋 Olá, como vai? \n\nEu sou o Josh, o *assistente virtual* do Fictícius Store. \n*Posso te ajudar?* 🙋‍♂️ \n *Escolha uma opção de 1 a 10* \n-----------------------------------\n1 - ```ENVIE AUDIO``` \n2 - ```MANDE BOTÕES```\n3 - ```LOCALIZAÇÃO```\n4 - ENVIE UM LINK\n5 - ENVIE UMA IMAGEM\n6 - ENVIE UM PDF\n7 - TROQUE O STATUS DO MEU PERFIL\n8 - VOLTE O STATUS DO MEU PERFIL\n9 - FOTO PERFIL ABERTO\n10 - FOTO PERFIL FECHADO - ```FALAR COM ATENDENTE - 0```';
+          var menu = '👋 Olá Rapha Tonhola, como vai? \n\nEu sou GPT390, o *assistente virtual* do SENAI - Cruzeiro. \n* Como posso te ajudar?* 🙋‍♂️ ';
           client.sendText(message.from, menu).then(() => {
             console.log('Message sent.');
           }).catch(error => console.error('Error when sending message', error));
