@@ -156,7 +156,7 @@ function start(client) {
 
 
         default:
-          var menu = '👋 Olá Rapha Tonhola, como vai? \n\nEu sou GPT390, o *assistente virtual* do SENAI - Cruzeiro. \n* Como posso te ajudar?* 🙋‍♂️ ';
+          var menu = '👋 Olá, como vai? \n\nEu sou GPT390, o *assistente virtual* do SENAI - Cruzeiro. \n* Como posso te ajudar?* 🙋‍♂️ ';
           client.sendText(message.from, menu).then(() => {
             console.log('Message sent.');
           }).catch(error => console.error('Error when sending message', error));
