@@ -1,9 +1,9 @@
 import { create } from 'venom-bot';
-// import { stages, getStage } from './stages.js';
 
 var userStates = {};
-var boasvindas = '👋 Olá, como vai? \n\nEu sou GPT390, o *assistente virtual* do SENAI - Cruzeiro. \n* Como posso te ajudar?* 🙋‍♂️\n \n'
-var menu = '*Escolha uma opção de 1 a 5* \n-----------------------------------\n1️⃣ - `Informações Gerais` \n2️⃣ - `Localização` \n3️⃣ - `Cursos Oferecidos`  \n4️⃣ - `Documentos de Matrícula` \n5️⃣ - `Recado do Diretor` \n';
+var boasvindas = '👋 Olá, como vai? \n\nEu sou GPT390, o *assistente virtual* do SENAI - Cruzeiro. \n *Como posso te ajudar?* 🙋‍♂️\n \n'
+var menu = '*Escolha uma opção de 1 a 4* \n-----------------------------------\n1️⃣ - `Informações Gerais` \n2️⃣ - `Localização` \n3️⃣ - `Cursos Oferecidos`  \n4️⃣ - `Documentos de Matrícula` \n ' // 5️⃣ - `Recado do Diretor` \n';
+var cursos = `📢 *Cursos com Matrículas Abertas!* 📢 \nConfira as áreas disponíveis e escolha a que mais combina com você: \n \n0️⃣ **Voltar ao Menu Principal** 🔙\n1️⃣ *Comandos Elétricos* ⚡\n2️⃣ *Ajustador Mecânico* 🔧\n3️⃣ *CLP - Controladores Lógicos Programáveis* 🖥️\n4️⃣ *Eletricista Instalador* 💡\n5️⃣ *Ferramenteiraria* 🔩\n6️⃣ *Informática Básica* 🖥️\n7️⃣ *Inspetor de Qualidade*  📊\n8️⃣ *NR11 - Operador de Ponte Rolante* 🏗️\n9️⃣ *NR11 - Operador de Empilhadeira* 🚜\n🔟 *Operador de Centro de Usinagem CNC* ⚙️\n1️⃣1️⃣ *Operador de Torno CNC* 🔄\n1️⃣2️⃣ *Máquinas de Usinagem Convencional* 🏭\n1️⃣3️⃣ *Prensa Industrial* 🏗️\n1️⃣4️⃣ *Soldador ao Arco Elétrico e Oxigás* 🔥 \n 0 para voltar ao Menu Principal \n\n ✅ *Vagas limitadas!*  \n 📅 *Matrículas abertas por tempo limitado!* `;
 
 create({
   session: 'store',
@@ -31,7 +31,7 @@ function start(client) {
 
       if (userState.submenu === 'courses') {
         console.log(userState.submenu);
-        handleSubmenuCourses(client, message, userState);
+        handleSubmenuCourses(client, message, userState, userId);
       } else {
         console.log(userState.submenu);
         handleMainMenu(client, message, userState);
@@ -45,7 +45,7 @@ function start(client) {
 function handleMainMenu(client, message, userState) {
   switch (message.body) {
     case '1':  //Informações Gerais
-      var info = "🌟 *Informações Gerais da Escola* 🌟 \n\n 📅 *Horário de Funcionamento:* \n Segunda a Sexta: 08h00 às 20h00 \n Sábados: 08h00 às 12h00 \n\n 📍 *Endereço:* \n Rua São Tomás, 01 - Jardim São José - Cruzeiro/SP \n\n 📞 *Telefone:* \n (12) 3141-1400 \n\n 🟢 *WhatsApp:* \n (12) 99653-2560 \n\n 🌐 *Redes Sociais e Site:* \n 🔗 Instagram: @senaicruzeiro \n 🔗 Facebook: fb.com/escolasenaicruzeiro \n 🔗 Site Oficial: https://sp.senai.br/unidade/cruzeiro/ \n\n Estamos à disposição para mais informações! 😊";
+      var info = "🌟 *Informações Gerais da Escola* 🌟 \n\n 📅 *Horário de Funcionamento:* \n Segunda a Sexta: 08h00 às 20h00 \n Sábados: 08h00 às 12h00 \n\n 📍 *Endereço:* \n Rua São Tomás, 01 - Jardim São José - Cruzeiro/SP \n\n 📞 *Telefone:* \n (12) 3141-1400 \n\n 🟢 *WhatsApp (atendimento humano, pode demorar um pouco mais):* \n (12) 99653-2560 \n\n 🌐 *Redes Sociais e Site:* \n 🔗 Instagram: @senaicruzeiro \n 🔗 Facebook: fb.com/escolasenaicruzeiro \n 🔗 Site Oficial: https://sp.senai.br/unidade/cruzeiro/ \n\n Estamos à disposição para mais informações! 😊";
       client.sendText(message.from, info)
         .then((result) => {
           console.log('Result: ', result); //return object success
@@ -65,16 +65,15 @@ function handleMainMenu(client, message, userState) {
           console.error('Error when sending: ', erro); //return object error
         });
       client.sendText(message.from, menu)
-        .then((result) => { 
-          console.log('Result: ', result); 
-        }).catch((erro) => { 
-          console.error('Error when sending: ', erro); 
-      });
+        .then((result) => {
+          console.log('Result: ', result);
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro);
+        });
       break;
 
     case '3':
-      var info = "Escolha sua área e transforme seu futuro! 🌟 \n \n 1️⃣ Automação e Mecatrônica – Explore a inovação e a inteligência das máquinas! 🤖⚙️ \n 2️⃣ Eletricidade – Energize seu futuro e domine os circuitos do conhecimento! ⚡🔌\n 3️⃣ Informática – Desvende o mundo digital e programe seu sucesso! 💻🚀 \n 4️⃣ Metalmecânica – Dê forma às suas ideias com precisão e tecnologia! 🏗️🔩 \n 5️⃣ Metalurgia – Transforme metais e construa um futuro sólido! 🔥🔧 \n 6️⃣ Saúde e Segurança do Trabalho – Proteja vidas e construa ambientes mais seguros! 🏥🦺 \n 🔙 Digite 0 para voltar ao menu principal. \n \n💡 Escolha sua área preferida e venha aprender com a gente! Responda com o número da sua opção e receba mais informações. 📩✨ ";
-      client.sendText(message.from, info).then((result) => {
+      client.sendText(message.from, cursos).then((result) => {
         console.log('Result: ', result); //return object success
       }).catch((erro) => {
         console.error('Error when sending: ', erro); //return object error
@@ -94,23 +93,23 @@ function handleMainMenu(client, message, userState) {
       });
       break;
 
-    case '5':
-      client
-        .sendImage(
-          message.from,
-          './lucas.jpg',
-          'image-name',
-          'O dia que fui na casa do Steve!'
-        )
-        .then((result) => {
-          console.log('Result: ', result); //return object success
-          return client.sendText(message.from, menu);
-        }).then((result) => {
-          console.log('Result: ', result); //return object success
-        }).catch((erro) => {
-          console.error('Error when sending: ', erro); //return object error
-        });
-      break;
+    // case '5':
+    //   client
+    //     .sendImage(
+    //       message.from,
+    //       './lucas.jpg',
+    //       'image-name',
+    //       'O dia que fui na casa do Steve!'
+    //     )
+    //     .then((result) => {
+    //       console.log('Result: ', result); //return object success
+    //       return client.sendText(message.from, menu);
+    //     }).then((result) => {
+    //       console.log('Result: ', result); //return object success
+    //     }).catch((erro) => {
+    //       console.error('Error when sending: ', erro); //return object error
+    //     });
+    //   break;
 
     default:
       var inicio = boasvindas + menu;
@@ -121,54 +120,259 @@ function handleMainMenu(client, message, userState) {
   }
 }
 
-function handleSubmenuCourses(client, message, userState) {
+function handleSubmenuCourses(client, message, userState, userId) {
+  var info = 'Veja todas as informações sobre o curso através desse link';
   switch (message.body) {
     case '1':
-      client.sendText(message.from, 'Você escolheu Automação e Mecatrônica! 🤖⚙️').then((result) => {
-        console.log('Result: ', result); //return object success
-      }).catch((erro) => {
-        console.error('Error when sending: ', erro); //return object error
-      });
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=Comandos&pag=1',
+          'Comandos elétricos',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
       break;
 
     case '2':
-      client.sendText(message.from, 'Você escolheu Eletricidade! ⚡🔌').then((result) => {
-        console.log('Result: ', result); //return object success
-      }).catch((erro) => {
-        console.error('Error when sending: ', erro); //return object error
-      });
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=Ajustador%20&pag=1',
+          'Ajustador Mecânico',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
       break;
 
     case '3':
-      client.sendText(message.from, 'Você escolheu Informática! 💻🚀').then((result) => {
-        console.log('Result: ', result); //return object success
-      }).catch((erro) => {
-        console.error('Error when sending: ', erro); //return object error
-      });
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=Controladores&pag=1',
+          'Controladores Lógicos Programáveis',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
       break;
 
     case '4':
-      client.sendText(message.from, 'Você escolheu Metalmecânica! 🏗️🔩').then((result) => {
-        console.log('Result: ', result); //return object success
-      }).catch((erro) => {
-        console.error('Error when sending: ', erro); //return object error
-      });
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=Eletricista&pag=1',
+          'Eletricista Instalador',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
       break;
 
     case '5':
-      client.sendText(message.from, 'Você escolheu Metalurgia! 🔥🔧').then((result) => {
-        console.log('Result: ', result); //return object success
-      }).catch((erro) => {
-        console.error('Error when sending: ', erro); //return object error
-      });
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=Ferramenteiro%20de%20corte&pag=1',
+          'Ferramentaria',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
       break;
 
     case '6':
-      client.sendText(message.from, 'Você escolheu Saúde e Segurança do Trabalho! 🏥🦺').then((result) => {
-        console.log('Result: ', result); //return object success
-      }).catch((erro) => {
-        console.error('Error when sending: ', erro); //return object error
-      });
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=INFORM%C3%81TICA&pag=1',
+          'Informática Básica',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
+      break;
+
+    case '7':
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=iNSPETOR%20DE%20QUALIDADE&pag=1',
+          'Inspetor de Qualidade',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
+      break;
+
+    case '8':
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=PONTE&pag=1',
+          'NR11 - Operaçao de Ponte Rolante',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
+      break;
+
+    case '9':
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=EMPILHADEIRA&pag=1',
+          'NR11 - Operaçao de Empilhadeira',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
+      break;
+
+    case '10':
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=CENTRO%20DE%20USINAGEM&pag=1',
+          'Operador de Centro de Usinagem CNC',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
+      break;
+
+    case '11':
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=TORNO%20CNC&pag=1',
+          'Operador de Torno CNC',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
+      break;
+
+    case '12':
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=OPERADOR%20DE%20M%C3%81QUINAS%20DE%20USINAGEM%20CONVENCIONAIS&pag=1',
+          'Operador de Máquinas de Usinagem Convencional',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
+      break;
+
+    case '13':
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=PRENSA&pag=1',
+          'Operador de Prensa Industrial',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
+      break;
+
+    case '14':
+      client
+        .sendLinkPreview(
+          userId,
+          'https://sp.senai.br/cursos/0/0?unidade=390&pesquisa=SOLDADOR&pag=1',
+          'Soldador ao Arco Elétrico e Oxigás',
+          info
+        )
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+          return client.sendText(message.from, cursos);
+        }).then((result) => {
+          console.log('Result: ', result); //return object success
+        }).catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
       break;
 
     case '0':
@@ -181,7 +385,10 @@ function handleSubmenuCourses(client, message, userState) {
       break;
 
     default:
-      client.sendText(message.from, 'Opção inválida. Por favor, escolha um número de 1 a 6.').then((result) => {
+      client.sendText(message.from, 'Opção inválida. Por favor, escolha um número de 1 a 15.').then((result) => {
+        console.log('Result: ', result); //return object success
+        return client.sendText(message.from, menu);
+      }).then((result) => {
         console.log('Result: ', result); //return object success
       }).catch((erro) => {
         console.error('Error when sending: ', erro); //return object error
