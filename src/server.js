@@ -1,26 +1,26 @@
 import { create } from 'venom-bot';
 
 var userStates = {};
-var boasvindas = '👋 Olá, como vai? \n\nEu sou GPT390, o *assistente virtual* do SENAI - Cruzeiro. \n *Como posso te ajudar?* 🙋‍♂️\n \n'
-var menu = '*Escolha uma opção de 1 a 4* \n-----------------------------------\n1️⃣ - `Informações Gerais` \n2️⃣ - `Localização` \n3️⃣ - `Cursos Oferecidos`  \n4️⃣ - `Documentos de Matrícula` \n ' // 5️⃣ - `Recado do Diretor` \n';
-var cursos = `📢 *Cursos com Matrículas Abertas!* 📢 \nConfira as áreas disponíveis e escolha a que mais combina com você: \n \n0️⃣ **Voltar ao Menu Principal** 🔙\n1️⃣ *Comandos Elétricos* ⚡\n2️⃣ *Ajustador Mecânico* 🔧\n3️⃣ *CLP - Controladores Lógicos Programáveis* 🖥️\n4️⃣ *Eletricista Instalador* 💡\n5️⃣ *Ferramenteiraria* 🔩\n6️⃣ *Informática Básica* 🖥️\n7️⃣ *Inspetor de Qualidade*  📊\n8️⃣ *NR11 - Operador de Ponte Rolante* 🏗️\n9️⃣ *NR11 - Operador de Empilhadeira* 🚜\n🔟 *Operador de Centro de Usinagem CNC* ⚙️\n1️⃣1️⃣ *Operador de Torno CNC* 🔄\n1️⃣2️⃣ *Máquinas de Usinagem Convencional* 🏭\n1️⃣3️⃣ *Prensa Industrial* 🏗️\n1️⃣4️⃣ *Soldador ao Arco Elétrico e Oxigás* 🔥 \n 0 para voltar ao Menu Principal \n\n ✅ *Vagas limitadas!*  \n 📅 *Matrículas abertas por tempo limitado!* `;
+var boasvindas = '👋 Olá, como vai? \n\nEu sou GPT390, o *assistente virtual* do SENAI - Cruzeiro. \n '
+var menu = '*Como posso te ajudar?* 🙋‍♂️\n \n*Escolha uma opção de 1 a 4* \n-----------------------------------\n1️⃣ - *Informações Gerais* \n2️⃣ - *Localização* \n3️⃣ - *Cursos Oferecidos*  \n4️⃣ - *Documentos de Matrícula* \n ' // 5️⃣ - `Recado do Diretor` \n';
+var cursos = `📢 *Cursos com Matrículas Abertas!* 📢 \nConfira as áreas disponíveis e escolha a que mais combina com você: \n \n0️⃣ **Voltar ao Menu Principal** 🔙\n1️⃣ *Comandos Elétricos* ⚡\n2️⃣ *Ajustador Mecânico* 🔧\n3️⃣ *CLP - Controladores Lógicos Programáveis* 🖥️\n4️⃣ *Eletricista Instalador* 💡\n5️⃣ *Ferramenteiraria* 🔩\n6️⃣ *Informática Básica* 🖥️\n7️⃣ *Inspetor de Qualidade*  📊\n8️⃣ *NR11 - Operador de Ponte Rolante* 🏗️\n9️⃣ *NR11 - Operador de Empilhadeira* 🚜\n🔟 *Operador de Centro de Usinagem CNC* ⚙️\n1️⃣1️⃣ *Operador de Torno CNC* 🔄\n1️⃣2️⃣ *Máquinas de Usinagem Convencional* 🏭\n1️⃣3️⃣ *Prensa Industrial* 🏗️\n1️⃣4️⃣ *Soldador ao Arco Elétrico e Oxigás* 🔥 \n\n ✅ *Vagas limitadas!*  \n 📅 *Matrículas abertas por tempo limitado!* `;
 
 create({
   session: 'store',
   multidevice: true,
   headless: false,
-})
-  .then((client) => start(client))
+  logQR: true,
+},
+  (asciiQR) => {
+    console.log(asciiQR);
+  })
+  .then((client) => {
+    start(client);
+  })
   .catch((error) => {
     console.error(error);
     process.exit(1);
   });
-
-// function responder(cliente, from, texto) {
-//   cliente.sendText(from, texto).then(() => {
-//     console.log(`Messagem ${texto} enviada.`);
-//   }).catch(error => console.error('Error when sending message', error));
-// }
 
 
 function start(client) {
@@ -385,9 +385,9 @@ function handleSubmenuCourses(client, message, userState, userId) {
       break;
 
     default:
-      client.sendText(message.from, 'Opção inválida. Por favor, escolha um número de 1 a 15.').then((result) => {
+      client.sendText(message.from, 'Opção inválida. Por favor, escolha um número de 1 a 14.').then((result) => {
         console.log('Result: ', result); //return object success
-        return client.sendText(message.from, menu);
+        return client.sendText(message.from, cursos);
       }).then((result) => {
         console.log('Result: ', result); //return object success
       }).catch((erro) => {
@@ -396,3 +396,4 @@ function handleSubmenuCourses(client, message, userState, userId) {
       break;
   }
 }
+
