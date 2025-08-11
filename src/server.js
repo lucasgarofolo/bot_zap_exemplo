@@ -2,7 +2,7 @@ import { create } from 'venom-bot';
 
 var userStates = {};
 var boasvindas = '👋 Olá, como vai? \n\nEu sou GPT390, o *assistente virtual* do SENAI - Cruzeiro. \n '
-var menu = '*Como posso te ajudar?* 🙋‍♂️\n \n*Escolha uma opção de 1 a 4* \n-----------------------------------\n1️⃣ - *Informações Gerais* \n2️⃣ - *Localização* \n3️⃣ - *Cursos Oferecidos*  \n4️⃣ - *Documentos de Matrícula* \n5️⃣ - *Atendimento humanizado* \n';
+var menu = '*Como posso te ajudar?* 🙋‍♂️\n \n*Escolha uma opção de 1 a 4* \n-----------------------------------\n1️⃣ - *Informações Gerais* \n2️⃣ - *Localização* \n3️⃣ - *Cursos Oferecidos*  \n4️⃣ - *Documentos de Matrícula* \n5️⃣ - *Atendimento humanizado* \n6️⃣ - *Certificados* \n';
 var cursos = `📢 *Cursos com Matrículas Abertas!* 📢 \nConfira as áreas disponíveis e escolha a que mais combina com você: \n \n0️⃣ **Voltar ao Menu Principal** 🔙\n1️⃣ *Comandos Elétricos* ⚡\n2️⃣ *Ajustador Mecânico* 🔧\n3️⃣ *CLP - Controladores Lógicos Programáveis* 🖥️\n4️⃣ *Eletricista Instalador* 💡\n5️⃣ *Ferramenteiraria* 🔩\n6️⃣ *Informática Básica* 🖥️\n7️⃣ *Inspetor de Qualidade*  📊\n8️⃣ *NR11 - Operador de Ponte Rolante* 🏗️\n9️⃣ *NR11 - Operador de Empilhadeira* 🚜\n🔟 *Operador de Centro de Usinagem CNC* ⚙️\n1️⃣1️⃣ *Operador de Torno CNC* 🔄\n1️⃣2️⃣ *Máquinas de Usinagem Convencional* 🏭\n1️⃣3️⃣ *Prensa Industrial* 🏗️\n1️⃣4️⃣ *Soldador ao Arco Elétrico e Oxigás* 🔥 \n\n ✅ *Vagas limitadas!*  \n 📅 *Matrículas abertas por tempo limitado!* `;
 
 create({
@@ -105,6 +105,17 @@ function handleMainMenu(client, message, userState) {
         }).catch((erro) => {
           console.error('Error when sending: ', erro); //return object error
         });
+      break;
+    case '6':
+      var certificados = "*Para emissão de certificados, compareça à escola!* \n\n 📅 *Horário de Funcionamento:* \n Segunda a Sexta: 08h00 às 20h00 \n Sábados: 08h00 às 12h00 \n\n 📍 *Endereço:* \n Rua São Tomás, 01 - Jardim São José - Cruzeiro/SP \n\n 📞 *Telefone:* \n (12) 3141-1400 \n"
+      client.sendText(message.from, certificados).then((result) => {
+        console.log('Result: ', result); //return object success
+        return client.sendText(message.from, menu);
+      }).then((result) => {
+        console.log('Result: ', result); //return object success
+      }).catch((erro) => {
+        console.error('Error when sending: ', erro); //return object error
+      });
       break;
 
     default:
@@ -381,15 +392,22 @@ function handleSubmenuCourses(client, message, userState, userId) {
       break;
 
     default:
-      client.sendText(message.from, 'Opção inválida. Por favor, escolha um número de 1 a 14.').then((result) => {
-        console.log('Result: ', result); //return object success
-        return client.sendText(message.from, cursos);
-      }).then((result) => {
+      userState.submenu = undefined; // Reset submenu state
+      client.sendText(message.from, menu).then((result) => {
         console.log('Result: ', result); //return object success
       }).catch((erro) => {
         console.error('Error when sending: ', erro); //return object error
       });
       break;
+      // client.sendText(message.from, 'Opção inválida. Por favor, escolha um número de 1 a 14.').then((result) => {
+      //   console.log('Result: ', result); //return object success
+      //   return client.sendText(message.from, cursos);
+      // }).then((result) => {
+      //   console.log('Result: ', result); //return object success
+      // }).catch((erro) => {
+      //   console.error('Error when sending: ', erro); //return object error
+      // });
+      // break;
   }
 }
 

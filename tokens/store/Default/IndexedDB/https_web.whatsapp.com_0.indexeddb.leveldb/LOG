@@ -1,0 +1,13 @@
+2025/08/11-09:04:48.208 7754 Reusing MANIFEST C:\Users\Instrutor\Documents\GitHub\bot_zap_exemplo\tokens\store\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/08/11-09:04:48.231 7754 Recovering log #49
+2025/08/11-09:04:48.255 7754 Reusing old log C:\Users\Instrutor\Documents\GitHub\bot_zap_exemplo\tokens\store\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000049.log 
+2025/08/11-09:04:52.319 7754 Level-0 table #54: started
+2025/08/11-09:04:52.414 7754 Level-0 table #54: 308446 bytes OK
+2025/08/11-09:04:52.417 7754 Delete type=0 #49
+2025/08/11-09:04:52.454 7754 Manual compaction at level-0 from '\x00\x1c\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1d\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/08/11-09:04:54.331 5748 Compacting 1@1 + 1@2 files
+2025/08/11-09:04:54.970 5748 Generated table #55@1: 24768 keys, 888573 bytes
+2025/08/11-09:04:54.971 5748 Compacted 1@1 + 1@2 files => 888573 bytes
+2025/08/11-09:04:54.983 5748 compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/08/11-09:04:54.990 5748 Delete type=2 #51
+2025/08/11-09:04:54.993 5748 Delete type=2 #54
